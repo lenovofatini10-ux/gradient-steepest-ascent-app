@@ -14,7 +14,7 @@ st.set_page_config(
 st.title("Gradient and Direction of Steepest Ascent")
 
 st.markdown("""
-This app visualises the **gradient of a function of two variables**
+This app visualises the **gradient of functions of two variables**
 and explains why it gives the **direction of steepest ascent**.
 """)
 
@@ -59,12 +59,11 @@ else:
 grad_mag = np.sqrt(grad_x**2 + grad_y**2)
 
 # --------------------------------------------------
-# 3D plot
+# 3D Surface Plot
 # --------------------------------------------------
 st.subheader("3D Surface Plot")
 
 fig = go.Figure()
-
 fig.add_surface(x=X, y=Y, z=Z, colorscale="viridis")
 fig.add_scatter3d(
     x=[x0], y=[y0], z=[z0],
@@ -84,12 +83,13 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 # --------------------------------------------------
-# Gradient vector plot
+# Gradient Vector Plot
 # --------------------------------------------------
 st.subheader("Gradient Vector in the xy-plane")
 
 fig2, ax = plt.subplots()
-ax.quiver(x0, y0, grad_x, grad_y, scale=1, scale_units="xy", angles="xy", color="red")
+ax.quiver(x0, y0, grad_x, grad_y, scale=1, scale_units="xy",
+          angles="xy", color="red")
 ax.scatter(x0, y0, color="black")
 ax.set_xlim(-3, 3)
 ax.set_ylim(-3, 3)
@@ -100,7 +100,7 @@ ax.grid(True)
 st.pyplot(fig2)
 
 # --------------------------------------------------
-# Gradient values (SAFE LaTeX)
+# Gradient values
 # --------------------------------------------------
 st.markdown(f"**Gradient at ({x0:.2f}, {y0:.2f})**")
 st.latex(r"\nabla f = (" + f"{grad_x:.2f}, {grad_y:.2f}" + ")")
@@ -109,13 +109,13 @@ st.markdown("**Magnitude of gradient**")
 st.latex(r"|\nabla f| = " + f"{grad_mag:.2f}")
 
 # --------------------------------------------------
-# GENERAL explanation (works for BOTH functions)
+# GENERAL explanation (both functions)
 # --------------------------------------------------
 st.subheader("What does the gradient represent?")
 
 st.markdown("""
-The gradient of a function of two variables is a vector that describes how
-the function changes with respect to both variables.
+The gradient of a function of two variables is a vector that describes
+how the function changes with respect to both variables.
 """)
 
 st.latex(r"\nabla f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)")
@@ -139,9 +139,9 @@ st.markdown("""
 - The magnitude of the gradient indicates **how steep** the surface is at that point
 """)
 
-# --------------------------------------------------
-# SPECIAL interpretation ONLY for x² + y²
-# --------------------------------------------------
+# ==================================================
+# GEOMETRIC INTERPRETATION — FUNCTION 1
+# ==================================================
 if function_choice == "f(x, y) = x² + y²":
 
     st.subheader("Geometric Interpretation for $f(x,y)=x^2+y^2$")
@@ -154,16 +154,44 @@ The gradient vector is parallel to the position vector \((x,y)\).
 Hence, it always points **radially outward from the origin**.
 """)
 
-    st.markdown("**2. Indicates the direction of steepest increase**")
+    st.markdown("**2. Direction of steepest increase**")
     st.markdown("""
-The function increases most rapidly when moving away from the origin,
+The function increases most rapidly when moving directly away from the origin,
 which is exactly the direction of the gradient.
 """)
 
-    st.markdown("**3. The surface is a paraboloid**")
+    st.markdown("**3. Surface shape**")
     st.markdown("""
-The surface \(z = x^2 + y^2\) is an upward-opening **paraboloid** with a
-minimum at the origin.
+The surface \(z=x^2+y^2\) is an upward-opening **paraboloid** with a minimum
+at the origin.
+""")
+
+# ==================================================
+# GEOMETRIC INTERPRETATION — FUNCTION 2
+# ==================================================
+else:
+
+    st.subheader("Geometric Interpretation for $f(x,y)=x^2y+y$")
+
+    st.markdown("**1. Gradient direction depends on both x and y**")
+    st.latex(r"\nabla f = (2xy,\; x^2+1)")
+
+    st.markdown("""
+Unlike the first function, the gradient here does **not** point radially.
+Its direction depends on the values of both \(x\) and \(y\).
+""")
+
+    st.markdown("**2. Direction of steepest increase varies across the surface**")
+    st.markdown("""
+The direction of steepest ascent changes from point to point.
+This reflects the fact that the surface is **not symmetric**.
+""")
+
+    st.markdown("**3. Surface shape**")
+    st.markdown("""
+The surface \(z=x^2y+y\) is a **saddle-like surface**.
+It curves upward in some directions and downward in others,
+which causes the gradient behaviour to vary across the surface.
 """)
 
 # --------------------------------------------------
