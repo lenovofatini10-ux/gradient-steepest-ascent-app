@@ -15,7 +15,10 @@ st.title("Gradient and Direction of Steepest Ascent")
 
 st.markdown("""
 This app visualises the **gradient of functions of two variables**
-and explains why it gives the **direction of steepest ascent**.
+and explains why it gives the **direction of steepest ascent**. 
+This visualiser is developed by MAT201 students from USM.
+Developer: Liyana, Aliya, & Fatini
+©2026
 """)
 
 # --------------------------------------------------
